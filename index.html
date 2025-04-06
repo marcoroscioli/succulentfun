@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Succulent Shop</title>
+    <title>Terrapotta</title>
     <style>
         :root {
             --primary: #2d6a4f;
@@ -399,7 +399,7 @@
 <body>
     <header>
         <div class="container header-content">
-            <div class="logo">Succu<span>Love</span></div>
+            <div class="logo">Terra<span>potta</span></div>
             <nav>
                 <ul>
                     <li><a href="#" onclick="showPage('home')">Home</a></li>
@@ -414,7 +414,7 @@
     <section id="home-page">
         <div class="hero">
             <div class="container">
-                <h1>Welcome to SuccuLove</h1>
+                <h1>Welcome to Terrapotta</h1>
                 <p>Your exclusive source for premium, hand-selected succulents. Each plant is carefully nurtured to ensure it thrives in its new home.</p>
                 <a href="#" class="btn" onclick="showPage('shop')">Shop Now</a>
             </div>
@@ -508,7 +508,7 @@
             <button class="chat-close" onclick="toggleChat()">✖</button>
         </div>
         <div class="chat-messages" id="chat-messages">
-            <div class="message bot">Welcome to SuccuLove! How can I help you with your succulent needs today?</div>
+            <div class="message bot">Welcome to Terrapotta! How can I help you with your succulent needs today?</div>
         </div>
         <div class="chat-input">
             <input type="text" id="chat-input" placeholder="Type your message..." onkeydown="if(event.key === 'Enter') sendMessage()">
@@ -518,7 +518,7 @@
     
     <footer>
         <div class="container">
-            <p>&copy; 2025 SuccuLove. All rights reserved.</p>
+            <p>&copy; 2025 Terrapotta. All rights reserved.</p>
         </div>
     </footer>
     
@@ -690,7 +690,7 @@
             } else if (msg.includes('price') || msg.includes('cost') || msg.includes('how much')) {
                 return 'Our succulents range from $6.99 to $19.99 depending on the variety and size. You can see all prices in our shop!';
             } else if (msg.includes('shipping') || msg.includes('delivery')) {
-                return 'We offer free shipping on orders over $35. Standard shipping takes 3-5 business days.';
+                return 'Sorry but we do not do shipping. We are located in Vero Beach, FL, USA';
             } else if (msg.includes('water') || msg.includes('care')) {
                 return 'Most succulents need infrequent but thorough watering. Wait until the soil is completely dry before watering again. They also need plenty of sunlight!';
             } else if (msg.includes('best') || msg.includes('recommend') || msg.includes('beginner')) {
