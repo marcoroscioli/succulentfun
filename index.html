@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Succulent Shop</title>
+    <style>
+        :root {
+            --primary: #2d6a4f;
+            --secondary: #40916c;
+            --accent: #74c69d;
+            --light: #d8f3dc;
+            --dark: #1b4332;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            background-image: linear-gradient(rgba(216, 243, 220, 0.9), rgba(216, 243, 220, 0.9)), url('/api/placeholder/1200/800');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 50px 0;
+        }
+        
+        .product-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .product-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .product-price {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin: 50px 0 30px;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .admin-panel {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            margin: 30px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .admin-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        textarea.form-control {
+            min-height: 100px;
+        }
+        
+        .cart-container {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 30px 0;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-total {
+            font-weight: bold;
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .login-form {
+            max-width: 400px;
+            margin: 100px auto;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .error-message {
+            color: #e63946;
+            margin-bottom: 15px;
+        }
+        
+        .success-message {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        /* Chat styles */
+        .chat-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        
+        .chat-button:hover {
+            transform: scale(1.1);
+            background-color: var(--secondary);
+        }
+        
+        .chat-container {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 450px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 999;
+            transition: transform 0.3s, opacity 0.3s;
+            transform: translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .chat-container.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .chat-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chat-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .message.user {
+            background-color: var(--accent);
+            color: var(--dark);
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .message.bot {
+            background-color: #f1f1f1;
+            color: var(--dark);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #eee;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            margin-right: 10px;
+        }
+        
+        .chat-input button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .chat-container {
+                width: 300px;
+                right: 10px;
+                bottom: 80px;
+            }
+            
+            .chat-button {
+                right: 20px;
+                bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">Succu<span>Love</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="showPage('shop')">Shop</a></li>
+                    <li><a href="#" onclick="showPage('cart')">Cart</a></li>
+                    <li><a href="#" onclick="showPage('admin')">Admin</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section id="home-page">
+        <div class="hero">
+            <div class="container">
+                <h1>Welcome to SuccuLove</h1>
+                <p>Your exclusive source for premium, hand-selected succulents. Each plant is carefully nurtured to ensure it thrives in its new home.</p>
+                <a href="#" class="btn" onclick="showPage('shop')">Shop Now</a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="login-page" style="display: none;">
+        <div class="container">
+            <div class="login-form">
+                <h2 class="admin-title">Admin Login</h2>
+                <div id="login-error" class="error-message" style="display: none;"></div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control">
+                </div>
+                <button class="btn" onclick="login()">Login</button>
+            </div>
+        </div>
+    </section>
+    
+    <section id="admin-page" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">Admin Dashboard</h2>
+            <div id="admin-message" class="success-message" style="display: none;"></div>
+            <div class="admin-panel">
+                <h3 class="admin-title">Add New Succulent</h3>
+                <div class="form-group">
+                    <label for="product-name">Succulent Name</label>
+                    <input type="text" id="product-name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="product-price">Price ($)</label>
+                    <input type="number" id="product-price" class="form-control" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="product-description">Description</label>
+                    <textarea id="product-description" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="product-image">Image URL</label>
+                    <input type="text" id="product-image" class="form-control" placeholder="Leave blank for placeholder image">
+                </div>
+                <button class="btn" onclick="addProduct()">Add Product</button>
+            </div>
+            
+            <div class="admin-panel">
+                <h3 class="admin-title">Manage Products</h3>
+                <div id="admin-products"></div>
+            </div>
+            
+            <div class="admin-panel">
+                <h3 class="admin-title">Order History</h3>
+                <div id="order-history"></div>
+            </div>
+
+            <div class="admin-panel">
+                <h3 class="admin-title">Chat Messages</h3>
+                <div id="chat-history"></div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="shop-page" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">Our Succulents</h2>
+            <div class="product-grid" id="products-container"></div>
+        </div>
+    </section>
+    
+    <section id="cart-page" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">Your Cart</h2>
+            <div class="cart-container">
+                <div id="cart-items"></div>
+                <div class="cart-total">Total: $<span id="cart-total">0.00</span></div>
+                <button class="btn" style="margin-top: 20px;" onclick="checkout()">Checkout</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Chat UI -->
+    <div class="chat-button" onclick="toggleChat()">💬</div>
+    
+    <div class="chat-container" id="chat-box">
+        <div class="chat-header">
+            <h3>Succulent Chat</h3>
+            <button class="chat-close" onclick="toggleChat()">✖</button>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot">Welcome to SuccuLove! How can I help you with your succulent needs today?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input" placeholder="Type your message..." onkeydown="if(event.key === 'Enter') sendMessage()">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 SuccuLove. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Sample data with 13 succulents (original 3 + 10 new ones)
+        let products = [
+            {
+                id: 1,
+                name: "Echeveria Elegans",
+                price: 12.99,
+                description: "Also known as 'Mexican Snowball', this rosette-shaped succulent has pale blue-green leaves.",
+                image: "/api/placeholder/400/300"
+            },
+            {
+                id: 2,
+                name: "Aloe Vera",
+                price: 9.99,
+                description: "A medicinal plant with thick, fleshy leaves that contain a soothing gel.",
+                image: "/api/placeholder/400/300"
+            },
+            {
+                id: 3,
+                name: "Haworthia Fasciata",
+                price: 8.99,
+                description: "Zebra plant with white horizontal stripes on dark green leaves.",
+                image: "/api/placeholder/400/300"
+            },
+            {
+                id: 4,
+                name: "Crassula Ovata",
+                price: 14.99,
+                description: "Jade Plant with thick, woody stems and oval-shaped leaves that store water.",
+                image: "/api/placeholder/400/300"
+            },
+            {
+                id: 5,
+                name: "Sedum Morganianum",
+                price: 16.99,
+                description: "Burro's Tail or Donkey's Tail, featuring trailing stems covered in plump, tear-drop shaped leaves.",
+                image: "/api/placeholder/400/300"
+            },
+            {
+                id: 6,
+                name: "Lithops",
+                price: 7.99,
+                description: "Living Stones - these unusual succulents resemble pebbles or stones and have very minimal water needs.",
+                image: "/api/placeholder/400/300"
+            },
+            {
+                id: 7,
+                name: "Euphorbia Tirucalli",
+                price: 19.99,
+                description: "Pencil Cactus or Fire Stick Plant with striking red/orange coloration when exposed to bright sunlight.",
+                image: "/api/placeholder/400/300"
+            },
+            {
+                id: 8,
+                name: "Kalanchoe Thyrsiflora",
+                price: 11.99,
+                description: "Paddle Plant or Flapjack Plant with large, round, flat leaves that stack on top of each other.",
+                image: "/api/placeholder/400/300"
+            },
+            {
+                id: 9,
+                name: "Sempervivum Tectorum",
+                price: 6.99,
+                description: "Hens and Chicks with rosettes that spread by producing tiny offsets around the mother plant.",
+                image: "/api/placeholder/400/300"
+            },
+            {
+                id: 10,
+                name: "Adromischus Cristatus",
+                price: 9.99,
+                description: "Crinkle Leaf Plant with unique wrinkled or crinkled leaf texture that resembles coral.",
+                image: "/api/placeholder/400/300"
+            },
+            {
+                id: 11,
+                name: "Senecio Rowleyanus",
+                price: 13.99,
+                description: "String of Pearls featuring trailing stems with small, spherical leaves that resemble a beaded necklace.",
+                image: "/api/placeholder/400/300"
+            },
+            {
+                id: 12,
+                name: "Aeonium Arboreum",
+                price: 15.99,
+                description: "Tree Houseleek with dark purple, nearly black rosettes on the end of branching stems.",
+                image: "/api/placeholder/400/300"
+            },
+            {
+                id: 13,
+                name: "Portulacaria Afra",
+                price: 8.99,
+                description: "Elephant Bush or Miniature Jade with small, round leaves on reddish stems, often used in bonsai.",
+                image: "/api/placeholder/400/300"
+            }
+        ];
+        
+        let cart = [];
+        let orders = [];
+        let isLoggedIn = false;
+        let chatMessages = [
+            { sender: 'bot', message: 'Welcome to SuccuLove! How can I help you with your succulent needs today?' }
+        ];
+        
+        // Admin credentials (in real implementation, this would be handled server-side)
+        const adminUser = "admin";
+        const adminPass = "succulent123";
+        
+        // Chat functionality
+        function toggleChat() {
+            const chatBox = document.getElementById('chat-box');
+            chatBox.classList.toggle('open');
+            
+            if (chatBox.classList.contains('open')) {
+                document.getElementById('chat-input').focus();
+            }
+        }
+        
+        function sendMessage() {
+            const inputElement = document.getElementById('chat-input');
+            const message = inputElement.value.trim();
+            
+            if (message === '') return;
+            
+            // Add user message to chat
+            addMessageToChat('user', message);
+            
+            // Clear input
+            inputElement.value = '';
+            
+            // Generate bot response after a short delay
+            setTimeout(() => {
+                const botResponse = generateBotResponse(message);
+                addMessageToChat('bot', botResponse);
+            }, 500);
+        }
+        
+        function addMessageToChat(sender, message) {
+            // Save message to history
+            chatMessages.push({ sender, message });
+            
+            // Create message element
+            const messageEl = document.createElement('div');
+            messageEl.className = `message ${sender}`;
+            messageEl.textContent = message;
+            
+            // Add to chat
+            const chatMessagesEl = document.getElementById('chat-messages');
+            chatMessagesEl.appendChild(messageEl);
+            
+            // Scroll to bottom
+            chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+            
+            // Update admin chat history if logged in
+            if (isLoggedIn) {
+                renderChatHistory();
+            }
+        }
+        
+        function generateBotResponse(userMessage) {
+            // Convert to lowercase for easier matching
+            const msg = userMessage.toLowerCase();
+            
+            // Simple keyword-based responses
+            if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
+                return 'Hello there! How can I help you with succulents today?';
+            } else if (msg.includes('price') || msg.includes('cost') || msg.includes('how much')) {
+                return 'Our succulents range from $6.99 to $19.99 depending on the variety and size. You can see all prices in our shop!';
+            } else if (msg.includes('shipping') || msg.includes('delivery')) {
+                return 'We offer free shipping on orders over $35. Standard shipping takes 3-5 business days.';
+            } else if (msg.includes('water') || msg.includes('care')) {
+                return 'Most succulents need infrequent but thorough watering. Wait until the soil is completely dry before watering again. They also need plenty of sunlight!';
+            } else if (msg.includes('best') || msg.includes('recommend') || msg.includes('beginner')) {
+                return 'For beginners, I recommend Haworthia Fasciata (Zebra Plant), Aloe Vera, or Echeveria Elegans. They are forgiving and easy to care for!';
+            } else if (msg.includes('light') || msg.includes('sun')) {
+                return 'Most succulents need at least 6 hours of bright, indirect sunlight daily. Some varieties can tolerate full sun, while others prefer partial shade.';
+            } else if (msg.includes('soil')) {
+                return 'Succulents need well-draining soil. A mix designed for cacti and succulents or a regular potting soil mixed with perlite or sand works well.';
+            } else if (msg.includes('thank')) {
+                return 'You\'re welcome! Feel free to ask if you have any other questions.';
+            } else if (msg.includes('propagate') || msg.includes('grow')) {
+                return 'Many succulents can be propagated from leaves or stem cuttings. Let the cutting callus over for a few days, then plant in well-draining soil.';
+            } else {
+                return 'Thanks for your message! If you have any specific questions about our succulents or need care advice, I\'m happy to help.';
+            }
+        }
+        
+        function renderChatHistory() {
+            const container = document.getElementById('chat-history');
+            container.innerHTML = '';
+            
+            if (chatMessages.length <= 1) {
+                container.innerHTML = '<p>No customer messages yet.</p>';
+                return;
+            }
+            
+            // Skip the first welcome message
+            for (let i = 1; i < chatMessages.length; i++) {
+                const message = chatMessages[i];
+                const messageEl = document.createElement('div');
+                messageEl.className = 'cart-item';
+                messageEl.innerHTML = `
+                    <div>
+                        <strong>${message.sender === 'user' ? 'Customer' : 'Bot'}:</strong>
+                    </div>
+                    <div>${message.message}</div>
+                `;
+                container.appendChild(messageEl);
+            }
+        }
+        
+        // Display functions
+        function showPage(page) {
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById('shop-page').style.display = 'none';
+            document.getElementById('cart-page').style.display = 'none';
+            document.getElementById('admin-page').style.display = 'none';
+            document.getElementById('login-page').style.display = 'none';
+            
+            if (page === 'admin' && !isLoggedIn) {
+                document.getElementById('login-page').style.display = 'block';
+            } else {
+                document.getElementById(page + '-page').style.display = 'block';
+            }
+            
+            // Update page content
+            if (page === 'shop') {
+                renderProducts();
+            } else if (page === 'cart') {
+                renderCart();
+            } else if (page === 'admin' && isLoggedIn) {
+                renderAdminProducts();
+                renderOrderHistory();
+                renderChatHistory();
+            }
+        }
+        
+        function renderProducts() {
+            const container = document.getElementById('products-container');
+            container.innerHTML = '';
+            
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-price">$${product.price.toFixed(2)}</p>
+                        <p>${product.description}</p>
+                        <button class="btn" onclick="addToCart(${product.id})">Add to Cart</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+        
+        function renderCart() {
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            cartItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Your cart is empty.</p>';
+                cartTotal.textContent = '0.00';
+                return;
+            }
+            
+            let total = 0;
+            
+            cart.forEach(item => {
+                const product = products.find(p => p.id === item.productId);
+                const itemTotal = product.price * item.quantity;
+                total += itemTotal;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div>
+                        <h3>${product.name}</h3>
+                        <p>$${product.price.toFixed(2)} x ${item.quantity}</p>
+                    </div>
+                    <div>
+                        $${itemTotal.toFixed(2)}
+                        <button class="btn" style="margin-left: 10px;" onclick="removeFromCart(${product.id})">Remove</button>
+                    </div>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+            
+            cartTotal.textContent = total.toFixed(2);
+        }
+        
+        function renderAdminProducts() {
+            const container = document.getElementById('admin-products');
+            container.innerHTML = '';
+            
+            products.forEach(product => {
+                const productEl = document.createElement('div');
+                productEl.className = 'cart-item';
+                productEl.innerHTML = `
+                    <div>
+                        <h3>${product.name}</h3>
+                        <p>$${product.price.toFixed(2)}</p>
+                    </div>
+                    <div>
+                        <button class="btn" style="background-color: #e63946;" onclick="deleteProduct(${product.id})">Delete</button>
+                    </div>
+                `;
+                container.appendChild(productEl);
+            });
+        }
+        
+        function renderOrderHistory() {
+            const container = document.getElementById('order-history');
+            container.innerHTML = '';
+            
+            if (orders.length === 0) {
+                container.innerHTML = '<p>No orders yet.</p>';
+                return;
+            }
+            
+            orders.forEach((order, index) => {
+                const orderEl = document.createElement('div');
+                orderEl.className = 'admin-panel';
+                
+                let orderItems = '';
+                let orderTotal = 0;
+                
+                order.items.forEach(item => {
+                    const product = products.find(p => p.id === item.productId);
+                    const itemTotal = product.price * item.quantity;
+                    orderTotal += itemTotal;
+                    
+                    orderItems += `
+                        <div class="cart-item">
+                            <div>${product.name} x ${item.quantity}</div>
+                            <div>$${itemTotal.toFixed(2)}</div>
+                        </div>
+                    `;
+                });
+                
+                orderEl.innerHTML = `
+                    <h3 class="admin-title">Order #${index + 1} - ${new Date(order.date).toLocaleString()}</h3>
+                    ${orderItems}
+                    <div class="cart-total">Total: $${orderTotal.toFixed(2)}</div>
+                `;
+                
+                container.appendChild(orderEl);
+            });
+        }
+function addToCart(productId) {
+    const existingItem = cart.find(item => item.productId === productId);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            productId: productId,
+            quantity: 1
+        });
+    }
+    
+    // Show a brief confirmation message
+    alert(`Added to cart!`);
+}
+
+function removeFromCart(productId) {
+    const index = cart.findIndex(item => item.productId === productId);
+    
+    if (index !== -1) {
+        cart.splice(index, 1);
+        renderCart();
+    }
+}
+
+function checkout() {
+    if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+    }
+    
+    // Create a new order
+    const order = {
+        date: new Date(),
+        items: [...cart]
+    };
+    
+    // Add to orders
+    orders.push(order);
+    
+    // Clear cart
+    cart = [];
+    
+    // Show confirmation
+    alert('Thank you for your order!');
+    
+    // Refresh cart display
+    renderCart();
+}
+
+function login() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const errorElement = document.getElementById('login-error');
+    
+    if (username === adminUser && password === adminPass) {
+        isLoggedIn = true;
+        showPage('admin');
+    } else {
+        errorElement.textContent = 'Invalid username or password.';
+        errorElement.style.display = 'block';
+    }
+}
+
+function addProduct() {
+    const name = document.getElementById('product-name').value;
+    const price = parseFloat(document.getElementById('product-price').value);
+    const description = document.getElementById('product-description').value;
+    let image = document.getElementById('product-image').value;
+    
+    // Validation
+    if (!name || !price || !description) {
+        alert('Please fill in all required fields.');
+        return;
+    }
+    
+    // Use placeholder if no image URL is provided
+    if (!image) {
+        image = "/api/placeholder/400/300";
+    }
+    
+    // Create new product
+    const newProduct = {
+        id: products.length + 1,
+        name: name,
+        price: price,
+        description: description,
+        image: image
+    };
+    
+    // Add to products
+    products.push(newProduct);
+    
+    // Show confirmation
+    const adminMessage = document.getElementById('admin-message');
+    adminMessage.textContent = `Successfully added ${name} to products.`;
+    adminMessage.style.display = 'block';
+    
+    // Clear form
+    document.getElementById('product-name').value = '';
+    document.getElementById('product-price').value = '';
+    document.getElementById('product-description').value = '';
+    document.getElementById('product-image').value = '';
+    
+    // Refresh admin products list
+    renderAdminProducts();
+}
+
+function deleteProduct(productId) {
+    // Check if product is in any cart
+    const inCart = cart.some(item => item.productId === productId);
+    
+    if (inCart) {
+        alert('Cannot delete product because it is in a customer\'s cart.');
+        return;
+    }
+    
+    // Find product index
+    const index = products.findIndex(p => p.id === productId);
+    
+    if (index !== -1) {
+        // Store product name for confirmation message
+        const productName = products[index].name;
+        
+        // Remove product
+        products.splice(index, 1);
+        
+        // Show confirmation
+        const adminMessage = document.getElementById('admin-message');
+        adminMessage.textContent = `Successfully deleted ${productName}.`;
+        adminMessage.style.display = 'block';
+        
+        // Refresh admin products list
+        renderAdminProducts();
+    }
+}
+
+// Initialize the page
+document.addEventListener('DOMContentLoaded', function() {
+    showPage('home');
+});
+
+  </script>
+</body>
+</html>
