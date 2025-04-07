@@ -928,6 +928,22 @@
             displayOrderHistory();
             
             showPage('home');
+        
+                function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const loginError = document.getElementById('login-error');
+            
+            if (username === adminUser && password === adminPass) {
+                isLoggedIn = true;
+                showPage('admin');
+            } else {
+                loginError.textContent = 'Invalid username or password';
+                loginError.style.display = 'block';
+            }
+        }
+        
+        
         }
         
         // Display admin products for management
