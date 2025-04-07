@@ -490,25 +490,175 @@
             </div>
         </div>
     </section>
-    
-    <section id="login-page" style="display: none;">
-        <div class="container">
-            <div class="login-form">
-                <h2 class="admin-title">Admin Login</h2>
-                <div id="login-error" class="error-message" style="display: none;"></div>
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" class="form-control">
-                </div>
-                <button class="btn" onclick="login()">Login</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-form {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .admin-title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .error-message {
+            color: red;
+            background-color: #ffe6e6;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .dashboard {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: none;
+        }
+        .dashboard h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .logout-btn {
+            background-color: #f44336;
+            margin-top: 20px;
+        }
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="login-page" class="login-form">
+            <h2 class="admin-title">Admin Login</h2>
+            <div id="login-error" class="error-message" style="display: none;"></div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" class="form-control">
             </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control">
+            </div>
+            <button class="btn" onclick="login()">Login</button>
         </div>
-    </section>
-    
+
+        <div id="dashboard" class="dashboard">
+            <h2>Admin Dashboard</h2>
+            <p>Welcome to the admin dashboard. You have successfully logged in.</p>
+            <button class="btn logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        // Set correct credentials
+        const correctUsername = "admin";
+        const correctPassword = "secure123"; 
+        
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const errorMessage = document.getElementById("login-error");
+            
+            // Check if fields are empty
+            if (!username || !password) {
+                errorMessage.textContent = "Please enter both username and password";
+                errorMessage.style.display = "block";
+                return;
+            }
+            
+            // Authenticate credentials
+            if (username === correctUsername && password === correctPassword) {
+                // Successful login
+                document.getElementById("login-page").style.display = "none";
+                document.getElementById("dashboard").style.display = "block";
+                errorMessage.style.display = "none";
+                
+                // Store login status
+                sessionStorage.setItem("isLoggedIn", "true");
+            } else {
+                // Failed login
+                errorMessage.textContent = "Invalid username or password";
+                errorMessage.style.display = "block";
+            }
+        }
+        
+        function logout() {
+            document.getElementById("login-page").style.display = "block";
+            document.getElementById("dashboard").style.display = "none";
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
+            
+            // Clear login status
+            sessionStorage.removeItem("isLoggedIn");
+        }
+        
+        // Check if user is already logged in (when page loads)
+        window.onload = function() {
+            if (sessionStorage.getItem("isLoggedIn") === "true") {
+                document.getElementById("login-page").style.display = "none";
+                document.getElementById("dashboard").style.display = "block";
+            }
+        }
+        
+        // Allow login with Enter key
+        document.getElementById("password").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                login();
+            }
+        });
+
     <section id="admin-page" style="display: none;">
         <div class="container">
             <h2 class="section-title">Admin Dashboard</h2>
