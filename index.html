@@ -245,131 +245,6 @@
             margin-bottom: 15px;
         }
         
-        /* Chat styles */
-        .chat-button {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: var(--primary);
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            cursor: pointer;
-            z-index: 1000;
-            transition: transform 0.3s, background-color 0.3s;
-        }
-        
-        .chat-button:hover {
-            transform: scale(1.1);
-            background-color: var(--secondary);
-        }
-        
-        .chat-container {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 350px;
-            height: 450px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            z-index: 999;
-            transition: transform 0.3s, opacity 0.3s;
-            transform: translateY(20px);
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .chat-container.open {
-            transform: translateY(0);
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        .chat-header {
-            background-color: var(--primary);
-            color: white;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .chat-header h3 {
-            margin: 0;
-            font-size: 1.2rem;
-        }
-        
-        .chat-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-        }
-        
-        .chat-messages {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .message {
-            max-width: 80%;
-            padding: 10px 15px;
-            margin-bottom: 10px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
-        
-        .message.user {
-            background-color: var(--accent);
-            color: var(--dark);
-            align-self: flex-end;
-            border-bottom-right-radius: 5px;
-        }
-        
-        .message.bot {
-            background-color: #f1f1f1;
-            color: var(--dark);
-            align-self: flex-start;
-            border-bottom-left-radius: 5px;
-        }
-        
-        .chat-input {
-            display: flex;
-            padding: 10px;
-            border-top: 1px solid #eee;
-        }
-        
-        .chat-input input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            margin-right: 10px;
-        }
-        
-        .chat-input button {
-            background-color: var(--secondary);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 10px 15px;
-            cursor: pointer;
-        }
-        
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -381,17 +256,6 @@
             
             .product-grid {
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-            
-            .chat-container {
-                width: 300px;
-                right: 10px;
-                bottom: 80px;
-            }
-            
-            .chat-button {
-                right: 20px;
-                bottom: 20px;
             }
         }
     </style>
@@ -473,11 +337,6 @@
                 <h3 class="admin-title">Order History</h3>
                 <div id="order-history"></div>
             </div>
-
-            <div class="admin-panel">
-                <h3 class="admin-title">Chat Messages</h3>
-                <div id="chat-history"></div>
-            </div>
         </div>
     </section>
     
@@ -499,23 +358,6 @@
         </div>
     </section>
     
-    <!-- Chat UI -->
-    <div class="chat-button" onclick="toggleChat()">💬</div>
-    
-    <div class="chat-container" id="chat-box">
-        <div class="chat-header">
-            <h3>Succulent Chat</h3>
-            <button class="chat-close" onclick="toggleChat()">✖</button>
-        </div>
-        <div class="chat-messages" id="chat-messages">
-            <div class="message bot">Welcome to SuccuLove! How can I help you with your succulent needs today?</div>
-        </div>
-        <div class="chat-input">
-            <input type="text" id="chat-input" placeholder="Type your message..." onkeydown="if(event.key === 'Enter') sendMessage()">
-            <button onclick="sendMessage()">Send</button>
-        </div>
-    </div>
-    
     <footer>
         <div class="container">
             <p>&copy; 2025 SuccuLove. All rights reserved.</p>
@@ -523,7 +365,7 @@
     </footer>
     
     <script>
-        // Sample data with 13 succulents (original 3 + 10 new ones)
+        // Sample data
         let products = [
             {
                 id: 1,
@@ -545,192 +387,16 @@
                 price: 8.99,
                 description: "Zebra plant with white horizontal stripes on dark green leaves.",
                 image: "/api/placeholder/400/300"
-            },
-            {
-                id: 4,
-                name: "Crassula Ovata",
-                price: 14.99,
-                description: "Jade Plant with thick, woody stems and oval-shaped leaves that store water.",
-                image: "/api/placeholder/400/300"
-            },
-            {
-                id: 5,
-                name: "Sedum Morganianum",
-                price: 16.99,
-                description: "Burro's Tail or Donkey's Tail, featuring trailing stems covered in plump, tear-drop shaped leaves.",
-                image: "/api/placeholder/400/300"
-            },
-            {
-                id: 6,
-                name: "Lithops",
-                price: 7.99,
-                description: "Living Stones - these unusual succulents resemble pebbles or stones and have very minimal water needs.",
-                image: "/api/placeholder/400/300"
-            },
-            {
-                id: 7,
-                name: "Euphorbia Tirucalli",
-                price: 19.99,
-                description: "Pencil Cactus or Fire Stick Plant with striking red/orange coloration when exposed to bright sunlight.",
-                image: "/api/placeholder/400/300"
-            },
-            {
-                id: 8,
-                name: "Kalanchoe Thyrsiflora",
-                price: 11.99,
-                description: "Paddle Plant or Flapjack Plant with large, round, flat leaves that stack on top of each other.",
-                image: "/api/placeholder/400/300"
-            },
-            {
-                id: 9,
-                name: "Sempervivum Tectorum",
-                price: 6.99,
-                description: "Hens and Chicks with rosettes that spread by producing tiny offsets around the mother plant.",
-                image: "/api/placeholder/400/300"
-            },
-            {
-                id: 10,
-                name: "Adromischus Cristatus",
-                price: 9.99,
-                description: "Crinkle Leaf Plant with unique wrinkled or crinkled leaf texture that resembles coral.",
-                image: "/api/placeholder/400/300"
-            },
-            {
-                id: 11,
-                name: "Senecio Rowleyanus",
-                price: 13.99,
-                description: "String of Pearls featuring trailing stems with small, spherical leaves that resemble a beaded necklace.",
-                image: "/api/placeholder/400/300"
-            },
-            {
-                id: 12,
-                name: "Aeonium Arboreum",
-                price: 15.99,
-                description: "Tree Houseleek with dark purple, nearly black rosettes on the end of branching stems.",
-                image: "/api/placeholder/400/300"
-            },
-            {
-                id: 13,
-                name: "Portulacaria Afra",
-                price: 8.99,
-                description: "Elephant Bush or Miniature Jade with small, round leaves on reddish stems, often used in bonsai.",
-                image: "/api/placeholder/400/300"
             }
         ];
         
         let cart = [];
         let orders = [];
         let isLoggedIn = false;
-        let chatMessages = [
-            { sender: 'bot', message: 'Welcome to SuccuLove! How can I help you with your succulent needs today?' }
-        ];
         
         // Admin credentials (in real implementation, this would be handled server-side)
         const adminUser = "admin";
         const adminPass = "succulent123";
-        
-        // Chat functionality
-        function toggleChat() {
-            const chatBox = document.getElementById('chat-box');
-            chatBox.classList.toggle('open');
-            
-            if (chatBox.classList.contains('open')) {
-                document.getElementById('chat-input').focus();
-            }
-        }
-        
-        function sendMessage() {
-            const inputElement = document.getElementById('chat-input');
-            const message = inputElement.value.trim();
-            
-            if (message === '') return;
-            
-            // Add user message to chat
-            addMessageToChat('user', message);
-            
-            // Clear input
-            inputElement.value = '';
-            
-            // Generate bot response after a short delay
-            setTimeout(() => {
-                const botResponse = generateBotResponse(message);
-                addMessageToChat('bot', botResponse);
-            }, 500);
-        }
-        
-        function addMessageToChat(sender, message) {
-            // Save message to history
-            chatMessages.push({ sender, message });
-            
-            // Create message element
-            const messageEl = document.createElement('div');
-            messageEl.className = `message ${sender}`;
-            messageEl.textContent = message;
-            
-            // Add to chat
-            const chatMessagesEl = document.getElementById('chat-messages');
-            chatMessagesEl.appendChild(messageEl);
-            
-            // Scroll to bottom
-            chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
-            
-            // Update admin chat history if logged in
-            if (isLoggedIn) {
-                renderChatHistory();
-            }
-        }
-        
-        function generateBotResponse(userMessage) {
-            // Convert to lowercase for easier matching
-            const msg = userMessage.toLowerCase();
-            
-            // Simple keyword-based responses
-            if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
-                return 'Hello there! How can I help you with succulents today?';
-            } else if (msg.includes('price') || msg.includes('cost') || msg.includes('how much')) {
-                return 'Our succulents range from $6.99 to $19.99 depending on the variety and size. You can see all prices in our shop!';
-            } else if (msg.includes('shipping') || msg.includes('delivery')) {
-                return 'We offer free shipping on orders over $35. Standard shipping takes 3-5 business days.';
-            } else if (msg.includes('water') || msg.includes('care')) {
-                return 'Most succulents need infrequent but thorough watering. Wait until the soil is completely dry before watering again. They also need plenty of sunlight!';
-            } else if (msg.includes('best') || msg.includes('recommend') || msg.includes('beginner')) {
-                return 'For beginners, I recommend Haworthia Fasciata (Zebra Plant), Aloe Vera, or Echeveria Elegans. They are forgiving and easy to care for!';
-            } else if (msg.includes('light') || msg.includes('sun')) {
-                return 'Most succulents need at least 6 hours of bright, indirect sunlight daily. Some varieties can tolerate full sun, while others prefer partial shade.';
-            } else if (msg.includes('soil')) {
-                return 'Succulents need well-draining soil. A mix designed for cacti and succulents or a regular potting soil mixed with perlite or sand works well.';
-            } else if (msg.includes('thank')) {
-                return 'You\'re welcome! Feel free to ask if you have any other questions.';
-            } else if (msg.includes('propagate') || msg.includes('grow')) {
-                return 'Many succulents can be propagated from leaves or stem cuttings. Let the cutting callus over for a few days, then plant in well-draining soil.';
-            } else {
-                return 'Thanks for your message! If you have any specific questions about our succulents or need care advice, I\'m happy to help.';
-            }
-        }
-        
-        function renderChatHistory() {
-            const container = document.getElementById('chat-history');
-            container.innerHTML = '';
-            
-            if (chatMessages.length <= 1) {
-                container.innerHTML = '<p>No customer messages yet.</p>';
-                return;
-            }
-            
-            // Skip the first welcome message
-            for (let i = 1; i < chatMessages.length; i++) {
-                const message = chatMessages[i];
-                const messageEl = document.createElement('div');
-                messageEl.className = 'cart-item';
-                messageEl.innerHTML = `
-                    <div>
-                        <strong>${message.sender === 'user' ? 'Customer' : 'Bot'}:</strong>
-                    </div>
-                    <div>${message.message}</div>
-                `;
-                container.appendChild(messageEl);
-            }
-        }
         
         // Display functions
         function showPage(page) {
@@ -754,7 +420,6 @@
             } else if (page === 'admin' && isLoggedIn) {
                 renderAdminProducts();
                 renderOrderHistory();
-                renderChatHistory();
             }
         }
         
@@ -872,148 +537,123 @@
                 container.appendChild(orderEl);
             });
         }
-function addToCart(productId) {
-    const existingItem = cart.find(item => item.productId === productId);
-    
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({
-            productId: productId,
-            quantity: 1
-        });
-    }
-    
-    // Show a brief confirmation message
-    alert(`Added to cart!`);
-}
-
-function removeFromCart(productId) {
-    const index = cart.findIndex(item => item.productId === productId);
-    
-    if (index !== -1) {
-        cart.splice(index, 1);
-        renderCart();
-    }
-}
-
-function checkout() {
-    if (cart.length === 0) {
-        alert('Your cart is empty!');
-        return;
-    }
-    
-    // Create a new order
-    const order = {
-        date: new Date(),
-        items: [...cart]
-    };
-    
-    // Add to orders
-    orders.push(order);
-    
-    // Clear cart
-    cart = [];
-    
-    // Show confirmation
-    alert('Thank you for your order!');
-    
-    // Refresh cart display
-    renderCart();
-}
-
-function login() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const errorElement = document.getElementById('login-error');
-    
-    if (username === adminUser && password === adminPass) {
-        isLoggedIn = true;
-        showPage('admin');
-    } else {
-        errorElement.textContent = 'Invalid username or password.';
-        errorElement.style.display = 'block';
-    }
-}
-
-function addProduct() {
-    const name = document.getElementById('product-name').value;
-    const price = parseFloat(document.getElementById('product-price').value);
-    const description = document.getElementById('product-description').value;
-    let image = document.getElementById('product-image').value;
-    
-    // Validation
-    if (!name || !price || !description) {
-        alert('Please fill in all required fields.');
-        return;
-    }
-    
-    // Use placeholder if no image URL is provided
-    if (!image) {
-        image = "/api/placeholder/400/300";
-    }
-    
-    // Create new product
-    const newProduct = {
-        id: products.length + 1,
-        name: name,
-        price: price,
-        description: description,
-        image: image
-    };
-    
-    // Add to products
-    products.push(newProduct);
-    
-    // Show confirmation
-    const adminMessage = document.getElementById('admin-message');
-    adminMessage.textContent = `Successfully added ${name} to products.`;
-    adminMessage.style.display = 'block';
-    
-    // Clear form
-    document.getElementById('product-name').value = '';
-    document.getElementById('product-price').value = '';
-    document.getElementById('product-description').value = '';
-    document.getElementById('product-image').value = '';
-    
-    // Refresh admin products list
-    renderAdminProducts();
-}
-
-function deleteProduct(productId) {
-    // Check if product is in any cart
-    const inCart = cart.some(item => item.productId === productId);
-    
-    if (inCart) {
-        alert('Cannot delete product because it is in a customer\'s cart.');
-        return;
-    }
-    
-    // Find product index
-    const index = products.findIndex(p => p.id === productId);
-    
-    if (index !== -1) {
-        // Store product name for confirmation message
-        const productName = products[index].name;
         
-        // Remove product
-        products.splice(index, 1);
+        // Action functions
+        function addToCart(productId) {
+            const existingItem = cart.find(item => item.productId === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    productId,
+                    quantity: 1
+                });
+            }
+            
+            alert('Item added to cart!');
+        }
         
-        // Show confirmation
-        const adminMessage = document.getElementById('admin-message');
-        adminMessage.textContent = `Successfully deleted ${productName}.`;
-        adminMessage.style.display = 'block';
+        function removeFromCart(productId) {
+            const index = cart.findIndex(item => item.productId === productId);
+            
+            if (index !== -1) {
+                cart.splice(index, 1);
+                renderCart();
+            }
+        }
         
-        // Refresh admin products list
-        renderAdminProducts();
-    }
-}
-
-// Initialize the page
-document.addEventListener('DOMContentLoaded', function() {
-    showPage('home');
-});
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            orders.push({
+                items: [...cart],
+                date: new Date().toISOString()
+            });
+            
+            cart = [];
+            alert('Thank you for your order!');
+            renderCart();
+        }
         
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const loginError = document.getElementById('login-error');
+            
+            if (username === adminUser && password === adminPass) {
+                isLoggedIn = true;
+                showPage('admin');
+            } else {
+                loginError.textContent = 'Invalid username or password';
+                loginError.style.display = 'block';
+            }
+        }
+        
+        function addProduct() {
+            const name = document.getElementById('product-name').value;
+            const price = parseFloat(document.getElementById('product-price').value);
+            const description = document.getElementById('product-description').value;
+            const image = document.getElementById('product-image').value || '/api/placeholder/400/300';
+            
+            if (!name || isNaN(price) || !description) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+            
+            products.push({
+                id: newId,
+                name,
+                price,
+                description,
+                image
+            });
+            
+            // Clear form
+            document.getElementById('product-name').value = '';
+            document.getElementById('product-price').value = '';
+            document.getElementById('product-description').value = '';
+            document.getElementById('product-image').value = '';
+            
+            // Show message
+            const message = document.getElementById('admin-message');
+            message.textContent = 'Product added successfully!';
+            message.style.display = 'block';
+            
+            // Update admin products view
+            renderAdminProducts();
+            
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 3000);
+        }
+        
+        function deleteProduct(productId) {
+            const index = products.findIndex(p => p.id === productId);
+            
+            if (index !== -1) {
+                products.splice(index, 1);
+                renderAdminProducts();
+                
+                const message = document.getElementById('admin-message');
+                message.textContent = 'Product deleted successfully!';
+                message.style.display = 'block';
+                
+                setTimeout(() => {
+                    message.style.display = 'none';
+                }, 3000);
+            }
+        }
+        
+        // Initialize the app
+        window.onload = function() {
+            showPage('home');
+        }
     </script>
 </body>
 </html>
